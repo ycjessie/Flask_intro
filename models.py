@@ -6,6 +6,7 @@ import datetime
 # Connect to a Postgres database.
 DATABASE = PostgresqlDatabase('flask_dog_app', host='localhost', port=5432)
 
+#schema
 class Dog(Model):
     name = CharField()
     owner = CharField()
