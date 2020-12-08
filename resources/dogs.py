@@ -1,5 +1,6 @@
 import models
 #https://git.generalassemb.ly/prudential-0921/flask-intro-get-post#setting-up-our-controller-aka-a-resource
+#https://git.generalassemb.ly/prudential-0921/flask-edit-delete-put-dogs-app
 #Blueprint module: setup Routes(Express)
 from flask import Blueprint, jsonify, request
 #peewee,http://docs.peewee-orm.com/en/latest/peewee/playhouse.html
@@ -50,6 +51,16 @@ def get_one_dog(id):
 def update_dog(id):
     payload = request.get_json()
     #** is like ... spreadoperation
+    #dog = models.Dog.update(name=payload['owner'], owner=payload["owner"], breed=payload["breed"]).where(models.Dog.id==id)
+    #where method from peewee very SQL like
     query = models.Dog.update(**payload).where(models.Dog.id==id)
+    #call it to excute
     query.execute()
     return jsonify(data=model_to_dict(models.Dog.get_by_id(id)), status={"code": 200, "message": "resource updated successfully"})
+
+#DELETE ROUTE
+@dog.route('/<id>', methods=["Delete"])
+def delete_dog(id):
+    query = models.Dog.delete().where(models.Dog.id==id)
+    query.execute()
+    return jsonify(data='resource successfully deleted', status={"code": 200, "message": "resource deleted successfully"})
