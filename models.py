@@ -15,9 +15,12 @@ host='localhost', port=5432)
 class User(UserMixin, Model):
     username = CharField(unique=True)
     email = CharField(unique=True)
+    #hash the password not saving it
     password = CharField()
-    #python class object,special construction instructions can be provided
-    class Meta:
+    
+    # python: class object special construction instructions 
+    # can be provided
+    class Meta: #python class object,
         database = DATABASE
 #schema
 class Dog(Model):
