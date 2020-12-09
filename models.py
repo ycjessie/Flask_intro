@@ -2,10 +2,23 @@
 # import * means import everything from peewee
 from peewee import *
 import datetime
+#add user classes
+#https://git.generalassemb.ly/prudential-0921/flask-register-login-dog-app#update-models
+from flask_login import UserMixin
+
 
 # Connect to a Postgres database.
-DATABASE = PostgresqlDatabase('flask_dog_app', host='localhost', port=5432)
+DATABASE = PostgresqlDatabase('flask_dog_app', 
+host='localhost', port=5432)
 
+#flask-login the interface for authentification purpose
+class User(UserMixin, Model):
+    username = CharField(unique=True)
+    email = CharField(unique=True)
+    password = CharField()
+    #python class object,special construction instructions can be provided
+    class Meta:
+        database = DATABASE
 #schema
 class Dog(Model):
     name = CharField()
