@@ -34,6 +34,7 @@ class Dog(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([Dog], safe=True)
+    #include Dog, User for creating tables
+    DATABASE.create_tables([Dog,User], safe=True)
     print("TABLES Created")
     DATABASE.close()
